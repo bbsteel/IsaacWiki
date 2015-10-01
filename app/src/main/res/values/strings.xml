@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">IsaacWiki</string>
     <string name="action_search">Search</string>
+    <string name="title_activity_single_item">singleItemActivity</string>
 </resources>

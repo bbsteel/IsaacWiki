@@ -79,31 +79,7 @@ public class MainActivity extends AppCompatActivity {
         itemIntent = new Intent(this, singleItemActivity.class);
     }
 
-    /*public boolean isExternalStorageWritable() {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
-    }
 
-    public boolean isExternalStorageReadable() {
-        String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state) ||
-                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-            return true;
-        }
-        return false;
-    }
-
-    public File getIsaacImageDir(String dirLink){
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), dirLink);
-        if (!file.mkdirs()) {
-            Log.e(Log_Tag, "Directory not created");
-        }
-        return file;
-    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -133,4 +109,24 @@ public class MainActivity extends AppCompatActivity {
             startActivity(itemIntent);
         }
     };
+
+    public boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    /*
+    public File getIsaacImageDir(String dirLink){
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), dirLink);
+        if (!file.mkdirs()) {
+            Log.e(Log_Tag, "Directory not created");
+        }
+        return file;
+    }
+    */
 }

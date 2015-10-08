@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +19,9 @@ import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
+import android.provider.ContactsContract.Directory;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         /*
         code chiem om imageButtons erin te zetten
          */
-
         gridlayout = (GridLayout) findViewById(R.id.gridlayout);
         params =  gridlayout.getLayoutParams();
         for (int i=0; i<gridlayout.getChildCount(); i++) {
@@ -74,6 +78,32 @@ public class MainActivity extends AppCompatActivity {
         //Voor joris om de singelItem Activity te maken
         itemIntent = new Intent(this, singleItemActivity.class);
     }
+
+    /*public boolean isExternalStorageWritable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isExternalStorageReadable() {
+        String state = Environment.getExternalStorageState();
+        if (Environment.MEDIA_MOUNTED.equals(state) ||
+                Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+            return true;
+        }
+        return false;
+    }
+
+    public File getIsaacImageDir(String dirLink){
+        File file = new File(Environment.getExternalStoragePublicDirectory(
+                Environment.DIRECTORY_PICTURES), dirLink);
+        if (!file.mkdirs()) {
+            Log.e(Log_Tag, "Directory not created");
+        }
+        return file;
+    }*/
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

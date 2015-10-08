@@ -1,6 +1,8 @@
 package com.jjc.isaacwiki;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,12 +13,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 
 public class MainActivity extends AppCompatActivity {
 
+    ViewGroup.LayoutParams params;
     GridLayout gridlayout;
 
     Intent itemIntent;
@@ -30,31 +34,45 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Log.d("Test", "1");
+
+        /*
+        code chiem om imageButtons erin te zetten
+         */
+
         gridlayout = (GridLayout) findViewById(R.id.gridlayout);
-        Log.d("Test", "2");
-        ViewGroup.LayoutParams params =  gridlayout.getLayoutParams();
-        Log.d("Test", "3");
-        Log.d("Columns", ""+gridlayout.getChildCount());
-        for (int i=0; i<gridlayout.getChildCount()-1; i++){
-            Log.d("Test", "4");
-            ImageButton v = (ImageButton)gridlayout.getChildAt(i);
-            v.setMaxWidth(gridlayout.getWidth()/gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight());
-            Log.d("Test", "5");
-            v.setMinimumWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight());
-            Log.d("Test", "6");
+        params =  gridlayout.getLayoutParams();
+        for (int i=0; i<gridlayout.getChildCount(); i++) {
+            View v = gridlayout.getChildAt(i);
+            ImageButton imgBut = (ImageButton) findViewById(v.getId());
+            imgBut.setOnClickListener(onImageButtonClick);
         }
 
+        gridlayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                int paddingTop = (int)(20 * getResources().getDisplayMetrics().density);
+                int paddingBottom = (int)(20 * getResources().getDisplayMetrics().density);
+                int width = gridlayout.getWidth();
+                for (int i=0; i<gridlayout.getChildCount(); i++) {
+                    View v = gridlayout.getChildAt(i);
+                    ImageButton imgBut = (ImageButton) findViewById(v.getId());
+                    Log.d("Test", "Width " + gridlayout.getWidth());
+                    imgBut.setMaxWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - imgBut.getPaddingLeft() - imgBut.getPaddingRight());
+                    imgBut.setMinimumWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight());
+                    if(i> gridlayout.getChildCount()){
+                        imgBut.setPadding(0, paddingTop , 0 , paddingBottom);
+                    }
+                }
+                if (Build.VERSION.SDK_INT < 16) {
+                    gridlayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+                } else {
+                    gridlayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                }
+            }
+        });
 
         //Voor joris om de singelItem Activity te maken
         itemIntent = new Intent(this, singleItemActivity.class);
-        itemButton = (ImageButton) findViewById(R.id.switchIntent);
-        itemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(itemIntent);
-            }
-        });
     }
 
     @Override
@@ -78,4 +96,11 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    View.OnClickListener onImageButtonClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            startActivity(itemIntent);
+        }
+    };
 }

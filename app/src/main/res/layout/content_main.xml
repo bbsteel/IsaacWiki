@@ -16,11 +16,12 @@
             android:id="@+id/gridlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:numColumns="4"
+            android:columnCount="5"
             android:verticalSpacing="10dp"
             android:horizontalSpacing="10dp"
             android:stretchMode="columnWidth"
             android:gravity="center" >
+
             <ImageButton
                 android:id="@+id/switchIntent"
                 android:src="@mipmap/blood_of_the_martyr"
@@ -44,6 +45,13 @@
 
             <ImageButton
                 android:id="@+id/test3"
+                android:src="@mipmap/blood_of_the_martyr"
+                android:background="@null"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+                android:id="@+id/test4"
                 android:src="@mipmap/blood_of_the_martyr"
                 android:background="@null"
                 android:layout_width="wrap_content"

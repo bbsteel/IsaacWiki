@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -63,15 +65,12 @@ public class MainActivity extends AppCompatActivity {
                 Bitmap bmp = BitmapFactory.decodeFile(file.getAbsolutePath());
                 ImageButton imageBtn = new ImageButton(this);
                 imageBtn.setImageBitmap(bmp);
-                imageBtn.setLayoutParams(new LayoutParams(
-                        LayoutParams.WRAP_CONTENT,
-                        LayoutParams.WRAP_CONTENT));
                 imageBtn.setId(id);
+                imageBtn.setBackgroundColor(Color.TRANSPARENT);
                 gridlayout.addView(imageBtn);
             }
         }
 
-        Log.d("Test", ""+gridlayout.getChildCount());
 
         params =  gridlayout.getLayoutParams();
         for (int i=0; i<gridlayout.getChildCount(); i++) {
@@ -88,7 +87,12 @@ public class MainActivity extends AppCompatActivity {
                 for (int i=0; i<gridlayout.getChildCount(); i++) {
                     View v = gridlayout.getChildAt(i);
                     ImageButton imgBut = (ImageButton) findViewById(v.getId());
-                    imgBut.setMaxWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - imgBut.getPaddingLeft() - imgBut.getPaddingRight());
+
+                    Log.d("Test", "" + (gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight()));
+
+                    //imgBut.setBackgroundColor(Color.BLUE);
+                    imgBut.setLayoutParams(new GridLayout.LayoutParams());
+                    imgBut.setMaxWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight());
                     imgBut.setMinimumWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight());
                     if(i> gridlayout.getChildCount()){
                         imgBut.setPadding(0, paddingTop , 0 , paddingBottom);

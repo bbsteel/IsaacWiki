@@ -22,41 +22,6 @@
             android:stretchMode="columnWidth"
             android:gravity="center" >
 
-            <ImageButton
-                android:id="@+id/switchIntent"
-                android:src="@mipmap/blood_of_the_martyr"
-                android:background="@null"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageButton
-                android:id="@+id/test"
-                android:src="@mipmap/blood_of_the_martyr"
-                android:background="@null"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-            <ImageButton
-                android:id="@+id/test2"
-                android:src="@mipmap/blood_of_the_martyr"
-                android:background="@null"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageButton
-                android:id="@+id/test3"
-                android:src="@mipmap/blood_of_the_martyr"
-                android:background="@null"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <ImageButton
-                android:id="@+id/test4"
-                android:src="@mipmap/blood_of_the_martyr"
-                android:background="@null"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
         </GridLayout>
 
 

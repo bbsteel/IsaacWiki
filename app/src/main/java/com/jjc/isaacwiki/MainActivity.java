@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.GridLayout;
@@ -32,7 +33,7 @@ import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
-    ViewGroup.LayoutParams params;
+    LayoutParams params;
     GridLayout gridlayout;
 
     Intent itemIntent;
@@ -51,14 +52,27 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
 
-        String baseDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        String fileName = "Magic_Mushroom.png";
-        File f = new File(baseDir + "/IsaacWiki/" + fileName);
-        Bitmap bmp = BitmapFactory.decodeFile(f.getAbsolutePath());
-        ImageView temp = (ImageView) findViewById(R.id.switchIntent);
-        temp.setImageBitmap(bmp);
-
         gridlayout = (GridLayout) findViewById(R.id.gridlayout);
+
+        String baseDir = Environment.getExternalStorageDirectory().getAbsolutePath()+"/IsaacWiki/";
+        File dir = new File(baseDir);
+        int id = 0;
+        for (File file : dir.listFiles()){
+            if(!file.isDirectory()){
+                id++;
+                Bitmap bmp = BitmapFactory.decodeFile(file.getAbsolutePath());
+                ImageButton imageBtn = new ImageButton(this);
+                imageBtn.setImageBitmap(bmp);
+                imageBtn.setLayoutParams(new LayoutParams(
+                        LayoutParams.WRAP_CONTENT,
+                        LayoutParams.WRAP_CONTENT));
+                imageBtn.setId(id);
+                gridlayout.addView(imageBtn);
+            }
+        }
+
+        Log.d("Test", ""+gridlayout.getChildCount());
+
         params =  gridlayout.getLayoutParams();
         for (int i=0; i<gridlayout.getChildCount(); i++) {
             View v = gridlayout.getChildAt(i);

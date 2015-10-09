@@ -1,6 +1,8 @@
 package com.jjc.isaacwiki;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,8 +22,13 @@ import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.provider.ContactsContract.Directory;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -38,6 +45,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        if(!isExternalStorageReadable()){
+            Toast.makeText(getApplicationContext(), "Externe opslag niet bereikbaar", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Log.d("Directory", ""+Environment.getExternalStorageDirectory());
+
+
+
+        String baseDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+        String fileName = "Magic_Mushroom.png";
+        File f = new File(baseDir + "/IsaacWiki/" + fileName);
+        Bitmap bmp = BitmapFactory.decodeFile(f.getAbsolutePath());
+        ImageView temp = (ImageView) findViewById(R.id.switchIntent);
+        temp.setImageBitmap(bmp);
+
 
 
         /*

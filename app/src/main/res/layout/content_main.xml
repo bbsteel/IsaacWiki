@@ -22,6 +22,41 @@
             android:stretchMode="columnWidth"
             android:gravity="center" >
 
+            <ImageButton
+                android:id="@+id/dummy1"
+                android:src="@mipmap/ic_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="0px"
+                />
+
+            <ImageButton
+                android:id="@+id/dummy2"
+                android:src="@mipmap/ic_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="0px"
+                />
+
+            <ImageButton
+                android:id="@+id/dummy3"
+                android:src="@mipmap/ic_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="0px"
+                />
+
+            <ImageButton
+                android:id="@+id/dummy4"
+                android:src="@mipmap/ic_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="0px"
+                />
+
+            <ImageButton
+                android:id="@+id/dummy5"
+                android:src="@mipmap/ic_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="0px"
+                />
+
         </GridLayout>
 
 

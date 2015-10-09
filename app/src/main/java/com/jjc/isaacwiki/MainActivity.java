@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -86,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
                 int paddingBottom = (int)(20 * getResources().getDisplayMetrics().density);
                 for (int i=0; i<gridlayout.getChildCount(); i++) {
                     View v = gridlayout.getChildAt(i);
+                    if((v.getId()==R.id.dummy1)||(v.getId()==R.id.dummy2)||(v.getId()==R.id.dummy3)||(v.getId()==R.id.dummy4)||(v.getId()==R.id.dummy5)){
+                        return;
+                    }
                     ImageButton imgBut = (ImageButton) findViewById(v.getId());
 
                     Log.d("Test", "" + (gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight()));
@@ -94,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                     imgBut.setLayoutParams(new GridLayout.LayoutParams());
                     imgBut.setMaxWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight());
                     imgBut.setMinimumWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight());
+
                     if(i> gridlayout.getChildCount()){
                         imgBut.setPadding(0, paddingTop , 0 , paddingBottom);
                     }

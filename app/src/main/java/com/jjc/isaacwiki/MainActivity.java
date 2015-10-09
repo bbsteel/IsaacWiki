@@ -50,9 +50,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Externe opslag niet bereikbaar", Toast.LENGTH_SHORT).show();
             return;
         }
-        Log.d("Directory", ""+Environment.getExternalStorageDirectory());
-
-
 
         String baseDir = Environment.getExternalStorageDirectory().getAbsolutePath();
         String fileName = "Magic_Mushroom.png";
@@ -60,13 +57,6 @@ public class MainActivity extends AppCompatActivity {
         Bitmap bmp = BitmapFactory.decodeFile(f.getAbsolutePath());
         ImageView temp = (ImageView) findViewById(R.id.switchIntent);
         temp.setImageBitmap(bmp);
-
-
-
-        /*
-        code chiem om imageButtons erin te zetten
-         */
-        Log.e("Info:", Environment.DIRECTORY_PICTURES);
 
         gridlayout = (GridLayout) findViewById(R.id.gridlayout);
         params =  gridlayout.getLayoutParams();
@@ -81,11 +71,9 @@ public class MainActivity extends AppCompatActivity {
             public void onGlobalLayout() {
                 int paddingTop = (int)(20 * getResources().getDisplayMetrics().density);
                 int paddingBottom = (int)(20 * getResources().getDisplayMetrics().density);
-                int width = gridlayout.getWidth();
                 for (int i=0; i<gridlayout.getChildCount(); i++) {
                     View v = gridlayout.getChildAt(i);
                     ImageButton imgBut = (ImageButton) findViewById(v.getId());
-                    Log.d("Test", "Width " + gridlayout.getWidth());
                     imgBut.setMaxWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - imgBut.getPaddingLeft() - imgBut.getPaddingRight());
                     imgBut.setMinimumWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight());
                     if(i> gridlayout.getChildCount()){
@@ -100,7 +88,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //Voor joris om de singelItem Activity te maken
         itemIntent = new Intent(this, singleItemActivity.class);
     }
 
@@ -143,15 +130,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-
-
-    public File getIsaacImageDir(String dirLink){
-        File file = new File(Environment.getExternalStoragePublicDirectory(
-                Environment.DIRECTORY_PICTURES), dirLink);
-        if (!file.mkdirs()) {
-            Log.e("Info:","Directory not created");
-        }
-        return file;
-    }
-
 }

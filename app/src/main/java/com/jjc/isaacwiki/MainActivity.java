@@ -43,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         /*
         code chiem om imageButtons erin te zetten
          */
+        Log.e("Info:", Environment.DIRECTORY_PICTURES);
+
         gridlayout = (GridLayout) findViewById(R.id.gridlayout);
         params =  gridlayout.getLayoutParams();
         for (int i=0; i<gridlayout.getChildCount(); i++) {
@@ -119,14 +121,14 @@ public class MainActivity extends AppCompatActivity {
         return false;
     }
 
-    /*
+
     public File getIsaacImageDir(String dirLink){
         File file = new File(Environment.getExternalStoragePublicDirectory(
                 Environment.DIRECTORY_PICTURES), dirLink);
         if (!file.mkdirs()) {
-            Log.e(Log_Tag, "Directory not created");
+            Log.e("Info:","Directory not created");
         }
         return file;
     }
-    */
+
 }

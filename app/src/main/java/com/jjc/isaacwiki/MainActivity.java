@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 imageBtn.setImageBitmap(bmp);
                 imageBtn.setId(id);
                 imageBtn.setBackgroundColor(Color.TRANSPARENT);
+                imageBtn.setAdjustViewBounds(true);
+                imageBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 gridlayout.addView(imageBtn);
             }
         }
@@ -99,9 +101,12 @@ public class MainActivity extends AppCompatActivity {
                     imgBut.setMaxWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight());
                     imgBut.setMinimumWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight());
 
+                    imgBut.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+
                     if(i> gridlayout.getChildCount()){
                         imgBut.setPadding(0, paddingTop , 0 , paddingBottom);
                     }
+                    imgBut.requestLayout();
                 }
                 if (Build.VERSION.SDK_INT < 16) {
                     gridlayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);

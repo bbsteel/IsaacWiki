@@ -4,33 +4,25 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.ContactsContract;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
+import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.ViewGroup;
+import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
-import android.provider.ContactsContract.Directory;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -57,6 +49,13 @@ public class MainActivity extends AppCompatActivity {
 
         gridlayout = (GridLayout) findViewById(R.id.gridlayout);
 
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        int height = size.y;
+        int paddingTop = (int)(20 * getResources().getDisplayMetrics().density);
+        int paddingBottom = (int)(20 * getResources().getDisplayMetrics().density);
         String baseDir = Environment.getExternalStorageDirectory().getAbsolutePath()+"/IsaacWiki/";
         File dir = new File(baseDir);
         int id = 0;
@@ -67,10 +66,12 @@ public class MainActivity extends AppCompatActivity {
                 ImageButton imageBtn = new ImageButton(this);
                 imageBtn.setImageBitmap(bmp);
                 imageBtn.setId(id);
+                imageBtn.setContentDescription(file.getName());
                 imageBtn.setBackgroundColor(Color.TRANSPARENT);
                 imageBtn.setAdjustViewBounds(true);
-                imageBtn.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
                 gridlayout.addView(imageBtn);
+                imageBtn.setPadding(0, paddingTop, 0, paddingBottom);
+                imageBtn.getLayoutParams().width = width/5-imageBtn.getPaddingLeft()-imageBtn.getPaddingRight();
             }
         }
 
@@ -81,40 +82,6 @@ public class MainActivity extends AppCompatActivity {
             ImageButton imgBut = (ImageButton) findViewById(v.getId());
             imgBut.setOnClickListener(onImageButtonClick);
         }
-
-        gridlayout.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
-            @Override
-            public void onGlobalLayout() {
-                int paddingTop = (int)(20 * getResources().getDisplayMetrics().density);
-                int paddingBottom = (int)(20 * getResources().getDisplayMetrics().density);
-                for (int i=0; i<gridlayout.getChildCount(); i++) {
-                    View v = gridlayout.getChildAt(i);
-                    if((v.getId()==R.id.dummy1)||(v.getId()==R.id.dummy2)||(v.getId()==R.id.dummy3)||(v.getId()==R.id.dummy4)||(v.getId()==R.id.dummy5)){
-                        return;
-                    }
-                    ImageButton imgBut = (ImageButton) findViewById(v.getId());
-
-                    Log.d("Test", "" + (gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight()));
-
-                    //imgBut.setBackgroundColor(Color.BLUE);
-                    imgBut.setLayoutParams(new GridLayout.LayoutParams());
-                    imgBut.setMaxWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight());
-                    imgBut.setMinimumWidth(gridlayout.getWidth() / gridlayout.getColumnCount() - v.getPaddingLeft() - v.getPaddingRight());
-
-                    imgBut.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
-
-                    if(i> gridlayout.getChildCount()){
-                        imgBut.setPadding(0, paddingTop , 0 , paddingBottom);
-                    }
-                    imgBut.requestLayout();
-                }
-                if (Build.VERSION.SDK_INT < 16) {
-                    gridlayout.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-                } else {
-                    gridlayout.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-                }
-            }
-        });
 
         itemIntent = new Intent(this, singleItemActivity.class);
     }
